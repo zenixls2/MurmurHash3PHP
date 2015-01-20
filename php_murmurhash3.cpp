@@ -103,7 +103,7 @@ ZEND_FUNCTION(murmurhash3_32)
     char *key;
     int key_len;
     long seed;
-    long result[1];
+    int result[1];
     //char output[MURMURHASH3_32_OUTPUT_LENGTH + 1];
     //char result[MURMURHASH3_32_OUTPUT_LENGTH * 2 + 1];
 
