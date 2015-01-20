@@ -103,8 +103,9 @@ ZEND_FUNCTION(murmurhash3_32)
     char *key;
     int key_len;
     long seed;
-    char output[MURMURHASH3_32_OUTPUT_LENGTH + 1];
-    char result[MURMURHASH3_32_OUTPUT_LENGTH * 2 + 1];
+    long result[1];
+    //char output[MURMURHASH3_32_OUTPUT_LENGTH + 1];
+    //char result[MURMURHASH3_32_OUTPUT_LENGTH * 2 + 1];
 
     // Parse the input parameters
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &key, &key_len, &seed) == FAILURE) {
@@ -112,15 +113,16 @@ ZEND_FUNCTION(murmurhash3_32)
     }
 
     // Calculate the hash
-    MurmurHash3_x86_32 ( key, key_len, (uint32_t)seed, output );
-    output[MURMURHASH3_32_OUTPUT_LENGTH] = 0;
+    MurmurHash3_x86_32 ( key, key_len, (uint32_t)seed, result );
+    RETURN_LONG(result[0]);
+    //output[MURMURHASH3_32_OUTPUT_LENGTH] = 0;
 
     // Convert to HEX
-    for (int i=0; i<MURMURHASH3_32_OUTPUT_LENGTH; i++) {
-      c2h(output[i], &result[i*2]);
-    }
-    result[MURMURHASH3_32_OUTPUT_LENGTH * 2] = 0;
+    //for (int i=0; i<MURMURHASH3_32_OUTPUT_LENGTH; i++) {
+    //  c2h(output[i], &result[i*2]);
+    //}
+    //result[MURMURHASH3_32_OUTPUT_LENGTH * 2] = 0;
 
     // Return the result
-    RETURN_STRING(result, 1);
+    //RETURN_STRING(result, 1);
 }
